@@ -1,0 +1,6 @@
+{
+  "name": "Linux Admin Academy",
+  "description": "Premium Linux, DevOps, and Cloud engineering platform with interactive labs, terminal simulator, task tracking, CLI guides, and futuristic Linux workstation UI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
