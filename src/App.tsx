@@ -1,18 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Navbar } from './components/Navbar';
-import { ChallengeView } from './components/ChallengeView';
-import { TerminalSimulator } from './components/TerminalSimulator';
-import { CommandTools } from './components/CommandTools';
-import { BlogView } from './components/BlogView';
-import { AboutView } from './components/AboutView';
-import { DayDetailModal } from './components/DayDetailModal';
 import { ProgressExporter } from './components/ProgressExporter';
 import { CommandPalette } from './components/CommandPalette';
 import { KeyboardShortcutsModal } from './components/KeyboardShortcutsModal';
 import { DayChallenge, UserProgress } from './types';
 import { DAYS_DATA } from './data/daysData';
 import { useTheme } from './context/ThemeContext';
+
+// Code splitting via dynamic lazy imports
+const ChallengeView = lazy(() => import('./components/ChallengeView').then((m) => ({ default: m.ChallengeView })));
+const BlogView = lazy(() => import('./components/BlogView').then((m) => ({ default: m.BlogView })));
+const AboutView = lazy(() => import('./components/AboutView').then((m) => ({ default: m.AboutView })));
+const TerminalSimulator = lazy(() => import('./components/TerminalSimulator').then((m) => ({ default: m.TerminalSimulator })));
+const CommandTools = lazy(() => import('./components/CommandTools').then((m) => ({ default: m.CommandTools })));
+const DayDetailModal = lazy(() => import('./components/DayDetailModal').then((m) => ({ default: m.DayDetailModal })));
+
+// Accessible fallback loader for lazy views
+const ViewLoadingFallback = () => (
+  <div className="flex flex-col items-center justify-center py-20 space-y-3 text-slate-500 dark:text-[#A1A1AA]" role="status" aria-label="Loading view">
+    <div className="w-8 h-8 border-2 border-[#22C55E] border-t-transparent rounded-full animate-spin" />
+    <span className="text-xs font-mono font-medium">Loading component...</span>
+  </div>
+);
 
 const STORAGE_KEY = 'linux_sysadmin_challenge_progress_v1';
 
@@ -304,86 +314,90 @@ export default function App() {
 
       {/* Main Container */}
       <main className="flex-1 max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
-        <AnimatePresence mode="wait">
-          {activeTab === 'challenge' && (
-            <motion.div
-              key="challenge"
-              initial={{ opacity: 0, y: 15, scale: 0.99 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.99 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <ChallengeView
-                userProgress={userProgress}
-                onSelectDay={(day) => setSelectedDay(day)}
-                onSelectTab={setActiveTab}
-              />
-            </motion.div>
-          )}
+        <Suspense fallback={<ViewLoadingFallback />}>
+          <AnimatePresence mode="wait">
+            {activeTab === 'challenge' && (
+              <motion.div
+                key="challenge"
+                initial={{ opacity: 0, y: 15, scale: 0.99 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.99 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <ChallengeView
+                  userProgress={userProgress}
+                  onSelectDay={(day) => setSelectedDay(day)}
+                  onSelectTab={setActiveTab}
+                />
+              </motion.div>
+            )}
 
-          {activeTab === 'playground' && (
-            <motion.div
-              key="playground"
-              initial={{ opacity: 0, y: 15, scale: 0.99 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.99 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="space-y-8 pb-12"
-            >
-              <div className="bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/[0.06] rounded-[24px] p-6 text-slate-900 dark:text-[#FAFAFA] shadow-xl space-y-2">
-                <h1 className="text-xl sm:text-2xl font-bold flex items-center gap-2">
-                  <span>Interactive Terminal Workstation & SysAdmin Tools</span>
-                </h1>
-                <p className="text-xs text-slate-500 dark:text-[#A1A1AA] font-mono">
-                  Real-time browser shell execution environment with system config generators and live CLI output.
-                </p>
-              </div>
+            {activeTab === 'playground' && (
+              <motion.div
+                key="playground"
+                initial={{ opacity: 0, y: 15, scale: 0.99 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.99 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="space-y-8 pb-12"
+              >
+                <div className="bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/[0.06] rounded-[24px] p-6 text-slate-900 dark:text-[#FAFAFA] shadow-xl space-y-2">
+                  <h1 className="text-xl sm:text-2xl font-bold flex items-center gap-2">
+                    <span>Interactive Terminal Workstation & SysAdmin Tools</span>
+                  </h1>
+                  <p className="text-xs text-slate-500 dark:text-[#A1A1AA] font-mono">
+                    Real-time browser shell execution environment with system config generators and live CLI output.
+                  </p>
+                </div>
 
-              {/* Terminal Simulator */}
-              <TerminalSimulator initialCommand={terminalCommand} />
+                {/* Terminal Simulator */}
+                <TerminalSimulator initialCommand={terminalCommand} />
 
-              {/* Quick Command Generators */}
-              <CommandTools />
-            </motion.div>
-          )}
+                {/* Quick Command Generators */}
+                <CommandTools />
+              </motion.div>
+            )}
 
-          {activeTab === 'blog' && (
-            <motion.div
-              key="blog"
-              initial={{ opacity: 0, y: 15, scale: 0.99 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.99 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <BlogView />
-            </motion.div>
-          )}
+            {activeTab === 'blog' && (
+              <motion.div
+                key="blog"
+                initial={{ opacity: 0, y: 15, scale: 0.99 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.99 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <BlogView />
+              </motion.div>
+            )}
 
-          {activeTab === 'about' && (
-            <motion.div
-              key="about"
-              initial={{ opacity: 0, y: 15, scale: 0.99 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.99 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <AboutView />
-            </motion.div>
-          )}
-        </AnimatePresence>
+            {activeTab === 'about' && (
+              <motion.div
+                key="about"
+                initial={{ opacity: 0, y: 15, scale: 0.99 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.99 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <AboutView />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </Suspense>
       </main>
 
       {/* Day Detail Lab Modal */}
       {selectedDay && (
-        <DayDetailModal
-          day={selectedDay}
-          userProgress={userProgress}
-          onToggleTask={handleToggleTask}
-          onToggleDayComplete={handleToggleDayComplete}
-          onSaveNotes={handleSaveNotes}
-          onRunTerminalCommand={handleRunTerminalCommand}
-          onClose={() => setSelectedDay(null)}
-        />
+        <Suspense fallback={null}>
+          <DayDetailModal
+            day={selectedDay}
+            userProgress={userProgress}
+            onToggleTask={handleToggleTask}
+            onToggleDayComplete={handleToggleDayComplete}
+            onSaveNotes={handleSaveNotes}
+            onRunTerminalCommand={handleRunTerminalCommand}
+            onClose={() => setSelectedDay(null)}
+          />
+        </Suspense>
       )}
 
       {/* Command Palette (⌘K) */}

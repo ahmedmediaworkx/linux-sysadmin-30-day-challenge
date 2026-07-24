@@ -43,6 +43,33 @@ export interface QuizQuestion {
   explanation: string;
 }
 
+export interface TicketInfo {
+  from: string;
+  priority: 'Low' | 'Medium' | 'High' | 'Critical';
+  subject: string;
+  message: string;
+}
+
+export interface BusinessContext {
+  whyImportant: string;
+  ifUnfixed: string;
+  affectedUsers: string;
+  businessImpact: string;
+}
+
+export interface InterviewQuestion {
+  question: string;
+  answerHint: string;
+}
+
+export interface DocumentationTemplate {
+  problem: string;
+  investigation: string;
+  rootCause: string;
+  solution: string;
+  lessonsLearned: string;
+}
+
 export interface DayChallenge {
   id: string;
   dayNumber: number;
@@ -52,6 +79,18 @@ export interface DayChallenge {
   durationMinutes: number;
   summary: string;
   scenario: string;
+  story?: string;
+  ticket?: TicketInfo;
+  businessContext?: BusinessContext;
+  environmentList?: string[];
+  studentObjective?: string;
+  expectedOutcome?: string;
+  commonMistakes?: string[];
+  seniorAdvice?: string;
+  bonusChallenge?: string;
+  realWorldSkills?: string[];
+  interviewQuestion?: InterviewQuestion;
+  documentationChallenge?: DocumentationTemplate;
   labEnvironment: {
     quickSetupCommand: string;
     description: string;

@@ -1,0 +1,173 @@
+{
+  "common": {
+    "language": "اللغة",
+    "selectLanguage": "اختر اللغة",
+    "english": "English 🇺🇸",
+    "arabic": "العربية 🇪🇬",
+    "close": "إغلاق",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "copied": "اتنسخ للحافظة بنجاح! 🚀",
+    "search": "بحث",
+    "reset": "إعادة ضبط",
+    "back": "رجوع",
+    "open": "افتح",
+    "days": "أيام",
+    "minutes": "دقيقة",
+    "tasks": "المهمات"
+  },
+  "nav": {
+    "brandTitle": "تحدي الـ Linux Admin",
+    "brandBadge": "معامل 30 يوم",
+    "brandSubtitle": "منهج مهندسين السيرفرات والـ Infrastructure",
+    "tabs": {
+      "challenge": "تحدي الـ 30 يوم",
+      "playground": "شاشة الـ Terminal",
+      "blog": "الشروحات والمقالات",
+      "about": "عن المشروع"
+    },
+    "searchTooltip": "دور في المعامل والأوامر (⌘K)",
+    "shortcutsTooltip": "اختصارات الكيبورد (?)",
+    "exportTooltip": "تصدير ونقل تقدمك",
+    "githubTooltip": "شوف الكود المفتوح المصدر على GitHub"
+  },
+  "ranks": {
+    "junior": "متدرب Junior",
+    "mid": "مهندس Mid SysAdmin",
+    "senior": "خبير Senior Infra",
+    "principal": "قائد Principal Architect"
+  },
+  "hero": {
+    "curriculumBadge": "منهج مفتوح المصدر • من مستويات Junior لحد Senior Infrastructure",
+    "title": "تحدي الـ 30 يوم لمهندسي شبكات وسيرفرات Linux",
+    "subtitle": "اتعلم إدارة سيرفرات الإنتاج الفعلية من خلال معامل عملية، حل مشاكل الـ Outage الواقعية، وأوامر مباشرة جاهزة للتجربة خطوة بخطوة.",
+    "launchTerminal": "جرب شاشة الـ Terminal",
+    "aboutAuthor": "مين أحمد وايل (ahmedmediaworkx)؟",
+    "daysCompleted": "الأيام المخلصة",
+    "challengeProgress": "نسبة الإنجاز",
+    "currentStreak": "الاستمرارية الحالية",
+    "sysadminRank": "رتبتك في الـ SysAdmin"
+  },
+  "filters": {
+    "searchPlaceholder": "دور في المعامل (مثال: LVM, SSH, Docker, eBPF)...",
+    "allLevels": "كل المستويات (30)",
+    "junior": "مبتدئ Junior (10)",
+    "mid": "متوسط Mid-Level (10)",
+    "senior": "متقدم Senior (10)",
+    "allCategories": "كل الأقسام",
+    "allStatuses": "كل الحالات",
+    "completedOnly": "المتخلص بس",
+    "inProgressOnly": "اللي شغال عليه بس",
+    "showing": "معروض",
+    "of": "من أصل",
+    "labsMatching": "معمل مطابق لـ:",
+    "level": "المستوى",
+    "category": "القسم",
+    "status": "الحالة",
+    "search": "البحث",
+    "clearAll": "امسح كل الفلاتر"
+  },
+  "heatmap": {
+    "title": "خريطة نشاطك واستمراريتك في التطبيق",
+    "activeStreak": "أيام استمرارية متواصلة",
+    "activityLog": "سجل نشاط آخر 30 يوم",
+    "heatmapView": "عرض الخريطة",
+    "chartView": "عرض الرسم البياني",
+    "currentStreak": "الـ Streak الحالي",
+    "totalActions": "إجمالي الأفعال (30 يوم)",
+    "activeDays": "الأيام النشطة",
+    "peakDailyOutput": "أعلى إنجاز في يوم",
+    "less": "أقل",
+    "more": "أكثر",
+    "actionsLogged": "أوامر ومهمات اتعملت",
+    "noActivity": "مفيش مهمات اتسجلت في اليوم ده"
+  },
+  "card": {
+    "day": "اليوم",
+    "completed": "تم بنجاح",
+    "openLab": "افتح المعمل"
+  },
+  "dayModal": {
+    "ticketId": "رقم التذكرة Ticket",
+    "scenarioStory": "سيناريو المشكلة والمحيط بالـ Production",
+    "labObjectives": "أهداف المعمل وقائمة المهمات المطلوبة",
+    "terminalCommands": "الأوامر التنفيذية الجاهزة للتشغيل",
+    "commonMistakes": "أخطاء شائعة خلي بالك منها",
+    "seniorAdvice": "نصيحة مهندس Senior مجرب",
+    "notes": "ملاحظاتك الشخصية والأوامر اللي جربتها",
+    "saveNotes": "احفظ الملاحظات",
+    "notesPlaceholder": "سجل هنا المسارات والأوامر أو المخرجات اللي طلعتلك في المعمل ده...",
+    "notesSaved": "الملاحظات اتسجلت بنجاح! 📝",
+    "runInTerminal": "شغل في الـ Terminal",
+    "copyCommands": "انسخ كل الأوامر",
+    "markAsCompleted": "علم على اليوم ده إنه خلص",
+    "markAsIncomplete": "ارجعه غير مكتمل",
+    "shareLab": "شير المعمل ده",
+    "copiedLink": "اللينك اتنسخ خلاص! 🔗"
+  },
+  "terminal": {
+    "title": "بيئة الـ Terminal المحاكاة وأدوات الـ SysAdmin",
+    "subtitle": "شاشة تجربة أوامر Linux فورية في المتصفح مع مولدات إعدادات الـ Config المباشرة.",
+    "headerTitle": "bash - sysadmin@production-host:~",
+    "runCommand": "نفذ الأمر",
+    "clearScreen": "نظف الشاشة",
+    "copyOutput": "انسخ مخرجات الـ Output",
+    "activeEnv": "البيئة النشطة",
+    "dockerMode": "حاوية Docker محاكاة",
+    "nativeMode": "ملاحة WebAssembly",
+    "commandToolsTitle": "مولدات إعدادات النظام المباشرة",
+    "systemdGen": "مولد خدمات Systemd",
+    "nginxGen": "إعدادات Nginx Reverse Proxy",
+    "cronGen": "مساعد جداول Crontab",
+    "sshGen": "تأمين حماية الـ SSH"
+  },
+  "blog": {
+    "badge": "مكتبة المعرفة والحلول الهندسية",
+    "title": "مقالات وشروحات عميقة في الـ SysAdmin والـ Cloud",
+    "subtitle": "أدلة مجربة لتعديل الـ Linux Kernel، مراقبة eBPF، إدارة خدمات Systemd، وبنية تخزين Kubernetes.",
+    "searchPlaceholder": "دور في الشروحات، الكلمات المفتاحية، أو الأوامر...",
+    "allCategories": "كل التصنيفات",
+    "readArticle": "اقرأ الشرح الكامل",
+    "bookmark": "احفظ المقال",
+    "bookmarked": "محفوظ"
+  },
+  "about": {
+    "badge": "ملف المطور والمؤسس",
+    "title": "أحمد وايل (ahmedmediaworkx)",
+    "subtitle": "مهندس Infrastructure ومهتم بالمشاريع المفتوحة المصدر وأنظمة السيرفرات",
+    "bioHeading": "بنساعد الجيل الجديد من مهندسي سيرفرات Linux",
+    "bioContent": "بخبرة أكتر من 8 سنين في إدارة الـ High Availability Cloud Infrastructure والـ Linux Kernel، عملت التحدي ده لـ 30 يوم عشان نلغي الفجوة بين القراءة النظرية والتطبيق العملي الفعلي بالـ CLI.",
+    "openSourceTitle": "100% مجاني ومفتوح المصدر",
+    "openSourceDesc": "المنهج ده معمول كأصل مجتمعي مفتوح المصدر. أي حد يقدر يعمل Fork، يضيف سيناريوهات جديدة، أو يستخدمه لتدريب التيم عنده.",
+    "skillsTitle": "التقنيات المتقنة",
+    "githubTitle": "إحصائيات مشروع GitHub"
+  },
+  "commandPalette": {
+    "title": "لوحة الأوامر السريعة",
+    "placeholder": "اكتب أمر أو دور على معمل (مثال: \"اليوم 1\", \"LVM\", \"Docker\")...",
+    "noResults": "ملقيناش أسلوب أو معمل بالاسم ده.",
+    "navigation": "التنقل",
+    "quickActions": "إجراءات سريعة",
+    "labs": "معامل التحدي",
+    "pressEsc": "اضغط ESC عشان تقفل"
+  },
+  "shortcuts": {
+    "title": "جدول اختصارات الكيبورد",
+    "navigation": "التنقل بين الصفحات",
+    "actions": "إجراءات عامة",
+    "labControls": "التحكم في المعمل",
+    "escToClose": "اضغط ESC أو برة عشان تقفل"
+  },
+  "exportModal": {
+    "title": "نسخ وتزامن التقدم",
+    "subtitle": "صَدَّر أو استورد إنجازك في الـ 30 يوم، ملاحظاتك والـ Streak بصيغة JSON.",
+    "exportTitle": "تصدير ملف التقدم",
+    "exportDesc": "حمل ملف إنجازك الكامل عشان تنقله لأي جهاز تاني بآمان.",
+    "downloadBtn": "حمل ملف الـ JSON",
+    "importTitle": "استيراد ملف التقدم",
+    "importDesc": "ارفع ملف تقدم كنت حافظه قبل كده عشان ترجع أيامك وملاحظاتك.",
+    "resetTitle": "تصفير كل التقدم",
+    "resetDesc": "امسح كل الأيام المكتملة والملاحظات. الحركة دي مفيهاش رجوع.",
+    "resetBtn": "تصفير التقدم"
+  }
+}

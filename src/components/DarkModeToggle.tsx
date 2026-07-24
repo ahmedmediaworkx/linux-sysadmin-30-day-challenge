@@ -30,7 +30,9 @@ export function DarkModeToggle() {
         onClick={() => setIsOpen(!isOpen)}
         id="theme-toggle-btn"
         title={`Theme Mode: ${theme.toUpperCase()}`}
-        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-mono font-medium border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-[#111113] text-slate-800 dark:text-[#FAFAFA] hover:bg-slate-100 dark:hover:bg-[#1F1F23] transition-all min-h-[38px]"
+        aria-label={`Toggle theme, current mode: ${theme}`}
+        aria-expanded={isOpen}
+        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-mono font-medium border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-[#111113] text-slate-800 dark:text-[#FAFAFA] hover:bg-slate-100 dark:hover:bg-[#1F1F23] transition-all min-h-[38px] cursor-pointer"
       >
         {getIcon()}
         <span className="capitalize hidden sm:inline">{theme}</span>

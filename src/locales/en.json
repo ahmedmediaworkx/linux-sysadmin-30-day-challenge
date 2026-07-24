@@ -1,0 +1,173 @@
+{
+  "common": {
+    "language": "Language",
+    "selectLanguage": "Select Language",
+    "english": "English 🇺🇸",
+    "arabic": "العربية 🇪🇬",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "copied": "Copied to Clipboard!",
+    "search": "Search",
+    "reset": "Reset",
+    "back": "Back",
+    "open": "Open",
+    "days": "Days",
+    "minutes": "mins",
+    "tasks": "Tasks"
+  },
+  "nav": {
+    "brandTitle": "Linux Admin Challenge",
+    "brandBadge": "30-Day Labs",
+    "brandSubtitle": "Production SysAdmin Curriculum",
+    "tabs": {
+      "challenge": "30-Day Labs",
+      "playground": "CLI Terminal",
+      "blog": "Tutorials",
+      "about": "About"
+    },
+    "searchTooltip": "Search Labs & Commands (⌘K)",
+    "shortcutsTooltip": "Keyboard Shortcuts (?)",
+    "exportTooltip": "Export / Sync Progress",
+    "githubTooltip": "View Open-Source Repository on GitHub"
+  },
+  "ranks": {
+    "junior": "Junior Trainee",
+    "mid": "Mid SysAdmin",
+    "senior": "Senior Infra",
+    "principal": "Principal Architect"
+  },
+  "hero": {
+    "curriculumBadge": "Open-Source Curriculum • Junior to Senior Infrastructure",
+    "title": "30-Day Linux System Administrator Challenge",
+    "subtitle": "Master production Linux administration through hands-on local labs, real-world troubleshooting scenarios, interactive code blocks, and step-by-step task checklists.",
+    "launchTerminal": "Launch Terminal Simulator",
+    "aboutAuthor": "About Ahmed (ahmedmediaworkx) Wael",
+    "daysCompleted": "Days Completed",
+    "challengeProgress": "Challenge Progress",
+    "currentStreak": "Current Streak",
+    "sysadminRank": "SysAdmin Rank"
+  },
+  "filters": {
+    "searchPlaceholder": "Search labs (e.g. LVM, SSH, Docker, eBPF)...",
+    "allLevels": "All Levels (30)",
+    "junior": "Junior (10)",
+    "mid": "Mid-Level (10)",
+    "senior": "Senior (10)",
+    "allCategories": "All Categories",
+    "allStatuses": "All Statuses",
+    "completedOnly": "Completed Only",
+    "inProgressOnly": "In-Progress Only",
+    "showing": "Showing",
+    "of": "of",
+    "labsMatching": "labs matching:",
+    "level": "Level",
+    "category": "Category",
+    "status": "Status",
+    "search": "Search",
+    "clearAll": "Clear All Filters"
+  },
+  "heatmap": {
+    "title": "SysAdmin Activity & Streaks Heatmap",
+    "activeStreak": "Day Streak Active",
+    "activityLog": "30-Day Activity Log",
+    "heatmapView": "Heatmap View",
+    "chartView": "Bar Chart View",
+    "currentStreak": "Current Streak",
+    "totalActions": "Total Actions (30d)",
+    "activeDays": "Active Days",
+    "peakDailyOutput": "Peak Daily Output",
+    "less": "Less",
+    "more": "More",
+    "actionsLogged": "actions logged",
+    "noActivity": "No lab tasks logged on this date"
+  },
+  "card": {
+    "day": "DAY",
+    "completed": "Completed",
+    "openLab": "Open Lab"
+  },
+  "dayModal": {
+    "ticketId": "Ticket ID",
+    "scenarioStory": "Production Incident Scenario & Context",
+    "labObjectives": "Lab Objectives & Task Checklist",
+    "terminalCommands": "Executable Command Snippets",
+    "commonMistakes": "Common Mistakes to Avoid",
+    "seniorAdvice": "Senior SysAdmin Pro-Tip",
+    "notes": "Personal Lab Notes & Commands Executed",
+    "saveNotes": "Save Notes",
+    "notesPlaceholder": "Write down custom configuration paths, log outputs, or takeaways from this lab...",
+    "notesSaved": "Notes saved successfully!",
+    "runInTerminal": "Run in Terminal",
+    "copyCommands": "Copy All Commands",
+    "markAsCompleted": "Mark Day as Completed",
+    "markAsIncomplete": "Mark as Incomplete",
+    "shareLab": "Share Lab",
+    "copiedLink": "Link Copied to Clipboard!"
+  },
+  "terminal": {
+    "title": "Interactive Terminal Workstation & SysAdmin Tools",
+    "subtitle": "Real-time browser shell execution environment with system config generators and live CLI output.",
+    "headerTitle": "bash - sysadmin@production-host:~",
+    "runCommand": "Run Command",
+    "clearScreen": "Clear Screen",
+    "copyOutput": "Copy Terminal Output",
+    "activeEnv": "ACTIVE ENV",
+    "dockerMode": "Docker Simulated Container",
+    "nativeMode": "WebAssembly Shell Engine",
+    "commandToolsTitle": "Instant System Configuration Generators",
+    "systemdGen": "Systemd Service Generator",
+    "nginxGen": "Nginx Reverse Proxy Spec",
+    "cronGen": "Crontab Schedule Helper",
+    "sshGen": "SSH Hardening Config"
+  },
+  "blog": {
+    "badge": "Production Engineering Knowledge Base",
+    "title": "Deep-Dive SysAdmin & Cloud Tutorials",
+    "subtitle": "Battle-tested guides on Linux kernel tuning, eBPF observability, Systemd unit management, and Kubernetes storage architecture.",
+    "searchPlaceholder": "Search articles, tags, commands...",
+    "allCategories": "All Categories",
+    "readArticle": "Read Full Tutorial",
+    "bookmark": "Bookmark Article",
+    "bookmarked": "Bookmarked"
+  },
+  "about": {
+    "badge": "Creator & Maintainer Profile",
+    "title": "Ahmed (ahmedmediaworkx) Wael",
+    "subtitle": "Infrastructure Engineer, Open-Source Contributor & Cloud Systems Specialist",
+    "bioHeading": "Empowering the Next Generation of Linux Administrators",
+    "bioContent": "With over 8 years in high-availability cloud infrastructure and Linux kernel engineering, I built this 30-Day Linux System Administrator challenge to solve a crucial problem: bridging the gap between passive reading and real CLI muscle memory.",
+    "openSourceTitle": "100% Free & Open Source",
+    "openSourceDesc": "This curriculum is designed as a community asset. Anyone can fork it, contribute new troubleshooting scenarios, or adapt it for internal team onboarding.",
+    "skillsTitle": "Core Technical Stack",
+    "githubTitle": "GitHub & Project Statistics"
+  },
+  "commandPalette": {
+    "title": "Command Palette",
+    "placeholder": "Type a command or search labs (e.g., \"Day 1\", \"LVM\", \"Docker\")...",
+    "noResults": "No matching commands or labs found.",
+    "navigation": "Navigation",
+    "quickActions": "Quick Actions",
+    "labs": "Lab Challenges",
+    "pressEsc": "Press ESC to close"
+  },
+  "shortcuts": {
+    "title": "Keyboard Shortcuts Cheat Sheet",
+    "navigation": "Navigation",
+    "actions": "Global Actions",
+    "labControls": "Lab & Modal Controls",
+    "escToClose": "Press ESC or click outside to dismiss"
+  },
+  "exportModal": {
+    "title": "Progress Backup & Sync",
+    "subtitle": "Import or export your 30-day challenge progress, lab notes, and streaks as JSON.",
+    "exportTitle": "Export Progress JSON",
+    "exportDesc": "Download your complete progress payload to transfer between workstations or back up safely.",
+    "downloadBtn": "Download Progress File",
+    "importTitle": "Import Progress File",
+    "importDesc": "Upload a previously saved progress JSON file to restore your completed labs and notes.",
+    "resetTitle": "Reset All Progress",
+    "resetDesc": "Clear all completed days, checklist progress, and notes. This action cannot be undone.",
+    "resetBtn": "Reset Progress"
+  }
+}

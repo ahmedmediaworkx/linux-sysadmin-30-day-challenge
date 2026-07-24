@@ -69,17 +69,17 @@ export function StreaksHeatmap({ userProgress }: StreaksHeatmapProps) {
 
   // Intensity color helpers
   const getCellBgClass = (count: number) => {
-    if (count === 0) return 'bg-slate-100 dark:bg-slate-800/50 border-slate-200 dark:border-slate-800 text-slate-400 hover:border-slate-400';
-    if (count <= 2) return 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 hover:border-emerald-400';
-    if (count <= 4) return 'bg-emerald-500/60 text-slate-950 font-bold border-emerald-400 hover:border-emerald-300';
-    return 'bg-emerald-400 text-slate-950 font-extrabold border-emerald-300 shadow-sm shadow-emerald-500/20 hover:scale-105';
+    if (count === 0) return 'bg-slate-100 dark:bg-[#0D1117] border-slate-200 dark:border-[#30363D] text-slate-400 hover:border-slate-400';
+    if (count <= 2) return 'bg-[#22C55E]/20 text-[#22C55E] border-[#22C55E]/30 hover:border-[#22C55E]';
+    if (count <= 4) return 'bg-[#22C55E]/60 text-slate-950 font-bold border-[#22C55E] hover:border-[#4ADE80]';
+    return 'bg-[#22C55E] text-slate-950 font-extrabold border-[#4ADE80] shadow-sm shadow-[#22C55E]/20 hover:scale-105';
   };
 
   const getBarColor = (count: number) => {
-    if (count === 0) return '#334155'; // slate-700
-    if (count <= 2) return '#10b981'; // emerald-500
-    if (count <= 4) return '#34d399'; // emerald-400
-    return '#6ee7b7'; // emerald-300
+    if (count === 0) return '#30363D';
+    if (count <= 2) return '#22C55E';
+    if (count <= 4) return '#4ADE80';
+    return '#86EFAC';
   };
 
   // Custom Recharts Tooltip
@@ -87,15 +87,15 @@ export function StreaksHeatmap({ userProgress }: StreaksHeatmapProps) {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-slate-900 border border-slate-700 text-slate-100 text-xs p-3 rounded-xl shadow-xl space-y-1 font-sans">
-          <p className="font-bold text-emerald-400 flex items-center gap-1.5">
+        <div className="bg-[#161B22] border border-[#30363D] text-[#F9FAFB] text-xs p-3 rounded-xl shadow-xl space-y-1 font-sans">
+          <p className="font-bold text-[#22C55E] flex items-center gap-1.5">
             <Calendar className="w-3.5 h-3.5" />
             <span>{data.monthDay} ({data.dayName})</span>
           </p>
-          <p className="text-slate-300">
+          <p className="text-[#D1D5DB]">
             Activity: <span className="font-mono font-bold text-white">{data.count} actions</span>
           </p>
-          <p className="text-[11px] text-slate-400">
+          <p className="text-[11px] text-[#9CA3AF]">
             {data.count === 0 ? 'No lab tasks logged on this date' : `${data.count} lab tasks/milestones executed`}
           </p>
         </div>
@@ -105,34 +105,34 @@ export function StreaksHeatmap({ userProgress }: StreaksHeatmapProps) {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 sm:p-7 shadow-xl space-y-6">
+    <div className="bg-white dark:bg-[#161B22] border border-slate-200 dark:border-[#30363D] rounded-3xl p-5 sm:p-7 shadow-xl space-y-6">
       {/* Header toolbar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800/80 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 dark:border-[#30363D] pb-5">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/10 text-amber-500 border border-amber-500/20 flex items-center gap-1">
               <Flame className="w-3.5 h-3.5 fill-amber-500" />
               <span>{streakCount} Day Streak Active</span>
             </span>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-[#0D1117] text-slate-600 dark:text-[#9CA3AF] border border-slate-200 dark:border-[#30363D]">
               30-Day Activity Log
             </span>
           </div>
 
-          <h2 className="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+          <h2 className="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-[#F9FAFB] flex items-center gap-2">
             <span>SysAdmin Activity & Streaks Heatmap</span>
-            <Sparkles className="w-4 h-4 text-emerald-500" />
+            <Sparkles className="w-4 h-4 text-[#22C55E]" />
           </h2>
         </div>
 
         {/* View Switcher Controls */}
-        <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl text-xs font-semibold self-start sm:self-auto">
+        <div className="flex items-center gap-1 bg-slate-100 dark:bg-[#0D1117] p-1 rounded-xl text-xs font-semibold self-start sm:self-auto border border-slate-200 dark:border-[#30363D]">
           <button
             onClick={() => setViewMode('grid')}
-            className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all ${
+            className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all cursor-pointer ${
               viewMode === 'grid'
-                ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-xs font-bold'
-                : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+                ? 'bg-white dark:bg-[#161B22] text-slate-900 dark:text-[#F9FAFB] shadow-xs font-bold'
+                : 'text-slate-500 hover:text-slate-800 dark:hover:text-[#F9FAFB]'
             }`}
           >
             <Grid className="w-3.5 h-3.5" />
@@ -141,10 +141,10 @@ export function StreaksHeatmap({ userProgress }: StreaksHeatmapProps) {
 
           <button
             onClick={() => setViewMode('chart')}
-            className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all ${
+            className={`px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all cursor-pointer ${
               viewMode === 'chart'
-                ? 'bg-emerald-500 text-slate-950 shadow-xs font-bold'
-                : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+                ? 'bg-[#22C55E] text-slate-950 shadow-xs font-bold'
+                : 'text-slate-500 hover:text-slate-800 dark:hover:text-[#F9FAFB]'
             }`}
           >
             <BarChart2 className="w-3.5 h-3.5" />
@@ -155,43 +155,43 @@ export function StreaksHeatmap({ userProgress }: StreaksHeatmapProps) {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80">
-          <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+        <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#0D1117] border border-slate-200/80 dark:border-[#30363D]">
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-[#9CA3AF] font-medium">
             <Flame className="w-4 h-4 text-amber-500" />
             <span>Current Streak</span>
           </div>
           <div className="text-xl sm:text-2xl font-extrabold text-amber-500 font-mono mt-1">
-            {streakCount} <span className="text-xs font-sans text-slate-400 font-normal">days</span>
+            {streakCount} <span className="text-xs font-sans text-[#6B7280] font-normal">days</span>
           </div>
         </div>
 
-        <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80">
-          <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
-            <Zap className="w-4 h-4 text-emerald-500" />
+        <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#0D1117] border border-slate-200/80 dark:border-[#30363D]">
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-[#9CA3AF] font-medium">
+            <Zap className="w-4 h-4 text-[#22C55E]" />
             <span>Total Actions (30d)</span>
           </div>
-          <div className="text-xl sm:text-2xl font-extrabold text-emerald-500 font-mono mt-1">
+          <div className="text-xl sm:text-2xl font-extrabold text-[#22C55E] font-mono mt-1">
             {totalActivity}
           </div>
         </div>
 
-        <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80">
-          <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+        <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#0D1117] border border-slate-200/80 dark:border-[#30363D]">
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-[#9CA3AF] font-medium">
             <TrendingUp className="w-4 h-4 text-blue-500" />
             <span>Active Days</span>
           </div>
           <div className="text-xl sm:text-2xl font-extrabold text-blue-400 font-mono mt-1">
-            {activeDaysCount} <span className="text-xs font-sans text-slate-400 font-normal">/ 30</span>
+            {activeDaysCount} <span className="text-xs font-sans text-[#6B7280] font-normal">/ 30</span>
           </div>
         </div>
 
-        <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80">
-          <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+        <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#0D1117] border border-slate-200/80 dark:border-[#30363D]">
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-[#9CA3AF] font-medium">
             <Award className="w-4 h-4 text-purple-500" />
             <span>Peak Daily Output</span>
           </div>
           <div className="text-xl sm:text-2xl font-extrabold text-purple-400 font-mono mt-1">
-            {maxDailyCount} <span className="text-xs font-sans text-slate-400 font-normal">tasks</span>
+            {maxDailyCount} <span className="text-xs font-sans text-[#6B7280] font-normal">tasks</span>
           </div>
         </div>
       </div>

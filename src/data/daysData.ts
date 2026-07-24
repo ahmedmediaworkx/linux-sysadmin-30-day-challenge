@@ -10,12 +10,40 @@ export const DAYS_DATA: DayChallenge[] = [
     category: 'Basics & CLI',
     durationMinutes: 30,
     summary: 'Master the Filesystem Hierarchy Standard (FHS) and essential CLI file operations.',
-    scenario: 'You joined Acme Corp as a Junior SysAdmin. You need to inspect system configuration files in /etc, analyze system binaries in /usr/bin, and clean temporary files in /var/tmp without touching system critical paths.',
+    story: 'You have just been hired as a Junior Linux SysAdmin at CloudScale Inc. The company operates hundreds of web nodes. On your first day, senior engineers ask you to audit host configuration directories, clean temporary scratch spaces, and verify critical binary paths.',
+    ticket: {
+      from: 'Infrastructure Lead <ops-lead@cloudscale.io>',
+      priority: 'Medium',
+      subject: 'Onboarding Task: Audit /etc configurations & clean /var/tmp',
+      message: 'Welcome aboard! Before deploying our microservices, please inspect the root directory layout, verify standard configuration paths in /etc, locate log files in /var/log, and set up our standard project workspace in /tmp without touching system runtime directories.'
+    },
+    businessContext: {
+      whyImportant: 'Understanding the FHS prevents accidentally wiping system configuration or filling up root partitions.',
+      ifUnfixed: 'Misplaced files or full /var/log partitions cause service crashes and unrecoverable boot failures.',
+      affectedUsers: 'All production web services and engineering teams.',
+      businessImpact: 'Maintains system stability, compliance, and predictable directory structures across 500+ servers.'
+    },
+    environmentList: ['Ubuntu 24.04 LTS', 'GNU Bash 5.2', 'Linux FHS 3.0', 'Virtual Machine'],
+    studentObjective: 'Inspect the root FHS layout, locate host configuration files in /etc, identify active logs in /var/log, and create an isolated project directory structure using Bash brace expansion.',
+    expectedOutcome: 'System configuration directories verified, log locations identified, and /tmp/acme/project/{src,bin,config,logs} structure established.',
+    commonMistakes: [
+      'Storing long-term application data inside /tmp or /var/tmp (they are purged periodically).',
+      'Confusing /etc (configuration) with /usr/etc or /var/etc.',
+      'Modifying files in virtual filesystems like /proc or /sys directly without understanding kernel implications.'
+    ],
+    seniorAdvice: 'Treat /etc as sacred — always take a timestamped copy (`cp -p config.conf config.conf.bak.$(date +%F)`) before editing any system configuration file.',
+    bonusChallenge: 'Write a single find command to locate all files in /var/log larger than 10MB modified in the last 7 days and output their permissions in human-readable format.',
+    realWorldSkills: ['FHS Directory Hierarchy', 'Linux File Navigation', 'Find Utility Filtering', 'Bash Brace Expansion'],
+    interviewQuestion: {
+      question: 'What is the fundamental difference between /proc, /sys, and /var in the Linux filesystem hierarchy?',
+      answerHint: '/proc is a pseudo-filesystem exposing process and kernel state in RAM; /sys is a pseudo-filesystem exposing device driver hierarchy; /var contains real persistent variable data like logs and databases.'
+    },
+    scenario: 'You joined CloudScale Inc as a Junior SysAdmin. You need to inspect system configuration files in /etc, analyze system binaries in /usr/bin, and clean temporary files in /var/tmp without touching system critical paths.',
     labEnvironment: {
       quickSetupCommand: 'docker run -d --name lab-day01 ubuntu:latest sleep infinity',
       description: 'Run an isolated Ubuntu Linux container or use any local Linux/WSL terminal.'
     },
-    prerequisites: ['Basic terminal terminal access', 'Bash shell access'],
+    prerequisites: ['Basic terminal access', 'Bash shell access'],
     tasks: [
       {
         id: 'd1-t1',
@@ -41,12 +69,12 @@ export const DAYS_DATA: DayChallenge[] = [
     hints: [
       {
         id: 'd1-h1',
-        title: 'Hint 1: FHS Directories',
+        title: 'FHS Directories Reference',
         content: '/etc is for host-specific configuration, /var is for variable data like logs/spools, /proc is a virtual filesystem reflecting kernel state.'
       },
       {
         id: 'd1-h2',
-        title: 'Hint 2: Braces expansion in Bash',
+        title: 'Braces expansion in Bash',
         content: 'Use brace expansion `{dir1,dir2}` with `mkdir -p` to create nested directory trees effortlessly.',
         codeSnippet: 'mkdir -p /tmp/acme/project/{src,bin,config,logs}'
       }
@@ -63,6 +91,34 @@ export const DAYS_DATA: DayChallenge[] = [
     category: 'Permissions & Users',
     durationMinutes: 45,
     summary: 'Understand octal permissions, SUID/SGID, sticky bits, and Access Control Lists (ACLs).',
+    story: 'The web development team at CloudScale is launching a new customer portal. Developers need full read/write access to /var/www/html, while external users must be strictly blocked. Furthermore, an external security auditor needs read-only access without being added to the developer group.',
+    ticket: {
+      from: 'Security Operations <secops@cloudscale.io>',
+      priority: 'High',
+      subject: 'SEC-402: Enforce strict permissions on /var/www/html with Auditor ACL',
+      message: 'We noticed world-readable permissions on web root directories. Please restrict /var/www/html to group "developers" (mode 2770 with SGID set for inherited ownership), set a sticky bit on shared uploads, and set an explicit POSIX ACL for user "auditor" to read-only.'
+    },
+    businessContext: {
+      whyImportant: 'Loose permissions permit unauthorized users or compromised web scripts to inspect secrets or overwrite codebase files.',
+      ifUnfixed: 'Risk of source code leaks, defacement, or remote code execution.',
+      affectedUsers: 'Developer team and security auditors.',
+      businessImpact: 'Prevents security compliance failures (PCI-DSS / SOC2) and unauthorized data modifications.'
+    },
+    environmentList: ['Rocky Linux 9 / Ubuntu 24.04', 'POSIX File System', 'ACL Utilities (setfacl/getfacl)'],
+    studentObjective: 'Configure octal modes, apply the SGID bit for group inheritance on /var/www/html, set sticky bit on shared upload folders, and grant fine-grained POSIX ACLs for auditing.',
+    expectedOutcome: 'Shared directory configured with mode 2770, sticky bit active on upload directory, and auditor granted r-x via POSIX ACL.',
+    commonMistakes: [
+      'Using `chmod 777` as a quick fix (this is a major security flaw in production!).',
+      'Forgetting the SGID bit (`chmod g+s`), causing files created by developers to belong to default user groups.',
+      'Overwriting standard group permissions when trying to add a single user (use POSIX ACLs instead).'
+    ],
+    seniorAdvice: 'When you see a plus sign (`+`) at the end of permission strings in `ls -l` (e.g. `drwxrwx---+`), it means POSIX ACLs are configured. Always inspect with `getfacl`.',
+    bonusChallenge: 'Configure a default POSIX ACL on /var/www/html so all future subdirectories automatically inherit read-only access for the auditor user.',
+    realWorldSkills: ['POSIX File Permissions', 'SGID Directory Inheritance', 'Sticky Bit Security', 'POSIX ACLs (setfacl)'],
+    interviewQuestion: {
+      question: 'What is the purpose of the Set Group ID (SGID) bit when applied to a directory versus an executable binary file?',
+      answerHint: 'On a directory, SGID forces all newly created files/folders to inherit the directory group owner. On an executable binary, SGID causes the program to run with the group privileges of the file owner rather than the user executing it.'
+    },
     scenario: 'A web development team needs shared access to /var/www/html. Developer accounts must be able to read/write, but normal users should have zero access. You also need to enforce inherited group permissions on newly created files.',
     labEnvironment: {
       quickSetupCommand: 'docker run -d --name lab-day02 ubuntu:latest sleep infinity',
@@ -94,12 +150,12 @@ export const DAYS_DATA: DayChallenge[] = [
     hints: [
       {
         id: 'd2-h1',
-        title: 'Hint 1: Special Permission Bits',
+        title: 'Special Permission Bits',
         content: 'SUID = 4000 (runs as owner), SGID = 2000 (inherits group), Sticky Bit = 1000 (protects deletion in shared folders).'
       },
       {
         id: 'd2-h2',
-        title: 'Hint 2: ACL Commands',
+        title: 'ACL Commands',
         content: 'Use `setfacl -m u:username:permissions /path` to grant granular permissions without modifying group ownership.',
         codeSnippet: 'setfacl -m u:auditor:r-x /var/www/html'
       }
@@ -116,6 +172,34 @@ export const DAYS_DATA: DayChallenge[] = [
     category: 'Processes & Services',
     durationMinutes: 40,
     summary: 'Monitor running processes, manage priorities with nice/renice, and send POSIX signals.',
+    story: 'Monitoring alerts triggered an urgent page: host web-node-01 CPU utilization hit 100%. A buggy runaway background job is hogging all CPU cycles, slowing down SSH sessions and delaying customer requests.',
+    ticket: {
+      from: 'NOC / SRE Alerts <alerts@cloudscale.io>',
+      priority: 'Critical',
+      subject: 'ALERT: High CPU Spikes on web-node-01 (Runaway Process)',
+      message: 'Host web-node-01 CPU load average is 14.5. Please locate the rogue process PID, analyze its CPU/memory consumption, lower its scheduling priority using renice, and terminate it gracefully with SIGTERM.'
+    },
+    businessContext: {
+      whyImportant: 'Unchecked processes starve application threads of CPU/RAM, degrading site response times or causing kernel OOM (Out Of Memory) panics.',
+      ifUnfixed: 'Complete server unresponsiveness and cascading failure across cluster nodes.',
+      affectedUsers: 'Thousands of active customer web sessions.',
+      businessImpact: 'Prevents SLA violations and maintains sub-second page response times.'
+    },
+    environmentList: ['Ubuntu Server 24.04', 'procps-ng (ps, top, kill, pkill)', 'Linux Kernel CPU Scheduler'],
+    studentObjective: 'Spawn a runaway process, locate its PID using ps and top/htop, adjust its CPU scheduling priority with renice, and terminate it gracefully using POSIX signals.',
+    expectedOutcome: 'Runaway process identified, priority adjusted to +15 niceness, and safely terminated using SIGTERM/SIGKILL.',
+    commonMistakes: [
+      'Using `kill -9` (SIGKILL) immediately without trying `kill -15` (SIGTERM) first.',
+      'Killing the wrong process PID due to careless grep filtering.',
+      'Misunderstanding nice values (-20 is highest priority, +19 is lowest priority).'
+    ],
+    seniorAdvice: 'Always send SIGTERM (15) first to allow processes to save state, close socket descriptors, and flush buffers. Reserve SIGKILL (9) for stubborn processes that ignore SIGTERM.',
+    bonusChallenge: 'Use `cpulimit` or cgroups v2 to restrict a process to a maximum of 25% CPU core usage without killing it.',
+    realWorldSkills: ['Process Monitoring (ps, top, htop)', 'POSIX Signals (SIGTERM, SIGKILL)', 'Process Renicing', 'Kernel CPU Priorities'],
+    interviewQuestion: {
+      question: 'What is the difference between SIGTERM (15), SIGINT (2), and SIGKILL (9)?',
+      answerHint: 'SIGINT is sent by Ctrl+C to interrupt from terminal. SIGTERM requests clean termination allowing process signal handling. SIGKILL is handled directly by the kernel and terminates the process immediately without cleanup.'
+    },
     scenario: 'A misbehaving background process is consuming high CPU and hanging terminal sessions. You must identify the runaway PID, analyze its memory usage, gracefully terminate it, or adjust its scheduling priority.',
     labEnvironment: {
       quickSetupCommand: 'docker run -d --name lab-day03 ubuntu:latest sleep infinity',
@@ -147,12 +231,12 @@ export const DAYS_DATA: DayChallenge[] = [
     hints: [
       {
         id: 'd3-h1',
-        title: 'Hint 1: POSIX Signals',
+        title: 'POSIX Signals',
         content: 'SIGINT (2) = Ctrl+C, SIGTERM (15) = Graceful shutdown requested, SIGKILL (9) = Immediate kernel-level termination.'
       },
       {
         id: 'd3-h2',
-        title: 'Hint 2: Nice Values',
+        title: 'Nice Values',
         content: 'Nice values range from -20 (highest priority, least "nice") to +19 (lowest priority, most "nice").'
       }
     ],
@@ -168,6 +252,34 @@ export const DAYS_DATA: DayChallenge[] = [
     category: 'Permissions & Users',
     durationMinutes: 35,
     summary: 'Provision service accounts, manage user expiry, locked accounts, and secure /etc/sudoers.',
+    story: 'An external DevOps contractor, Alex, needs temporary 30-day access to perform Nginx web server maintenance. Company compliance mandates strict least-privilege: Alex must be able to restart Nginx via sudo without a password prompt, but must NEVER obtain a full root shell or access `/etc/shadow`.',
+    ticket: {
+      from: 'Compliance & IT Risk <compliance@cloudscale.io>',
+      priority: 'High',
+      subject: 'IAM-309: Provision temporary contractor "sys_contractor" with limited sudo',
+      message: 'Please create user "sys_contractor" with account expiry in 30 days. Add a drop-in file in /etc/sudoers.d/ contractually restricted ONLY to `/usr/bin/systemctl restart nginx` and `/usr/bin/systemctl status nginx` without password.'
+    },
+    businessContext: {
+      whyImportant: 'Giving third-party vendors full sudo access violates SOC2 and ISO27001 security frameworks.',
+      ifUnfixed: 'Audit failure and potential insider privilege escalation.',
+      affectedUsers: 'Third-party contractors and security auditors.',
+      businessImpact: 'Maintains zero-trust governance and satisfies strict enterprise compliance audits.'
+    },
+    environmentList: ['Ubuntu Server / RHEL 9', 'Shadow Password Suite (chage)', 'Sudoers Engine (visudo)'],
+    studentObjective: 'Create a restricted service user, configure automated account expiration dates with `chage`, and write a validated drop-in sudoers file in `/etc/sudoers.d/`.',
+    expectedOutcome: 'User account created with 30-day auto-expiry, and sudoers drop-in verified via `visudo -c`.',
+    commonMistakes: [
+      'Editing `/etc/sudoers` directly with vim instead of `visudo` (a syntax error locks everyone out of sudo!).',
+      'Forgetting file mode `0440` on `/etc/sudoers.d/*` files (sudo ignores files with loose permissions).',
+      'Allowing wildcards in sudo paths like `/usr/bin/systemctl *` which lets contractors control ALL system services.'
+    ],
+    seniorAdvice: 'Always use drop-in files in `/etc/sudoers.d/` rather than modifying `/etc/sudoers` directly. This keeps configuration modular and survives distribution package upgrades.',
+    bonusChallenge: 'Configure `sudo` session logging so all commands executed by `sys_contractor` are logged to `/var/log/sudo_custom.log`.',
+    realWorldSkills: ['Linux Account Management', 'Account Expiration (chage)', 'Least-Privilege Sudoers Configuration', 'Visudo Validation'],
+    interviewQuestion: {
+      question: 'Why is editing /etc/sudoers directly dangerous, and how does visudo prevent system lockout?',
+      answerHint: 'Visudo locks the sudoers file against concurrent edits and parses syntax in a temporary copy before saving. If syntax errors exist, visudo prevents saving, protecting against broken root sudo access.'
+    },
     scenario: 'Provision a contractor account "sys_contractor" that expires in 30 days. Grant them restricted sudo access to restart systemd services (nginx) without password prompts, but prevent root shell access.',
     labEnvironment: {
       quickSetupCommand: 'docker run -d --name lab-day04 ubuntu:latest sleep infinity',
@@ -199,7 +311,7 @@ export const DAYS_DATA: DayChallenge[] = [
     hints: [
       {
         id: 'd4-h1',
-        title: 'Hint 1: Drop-in Sudoers Files',
+        title: 'Drop-in Sudoers Files',
         content: 'Never edit /etc/sudoers directly! Use `/etc/sudoers.d/filename` with strict permissions (0440).'
       }
     ],
@@ -215,6 +327,34 @@ export const DAYS_DATA: DayChallenge[] = [
     category: 'Basics & CLI',
     durationMinutes: 40,
     summary: 'Manage software packages with APT/DNF, configure repository sources, and extract source archives.',
+    story: 'CloudScale is onboarding Docker container tools and diagnostic utilities. As part of server standardization, you need to configure trusted GPG keys in `/etc/apt/keyrings`, verify package dependencies, and install custom compiled binaries from tarball archives.',
+    ticket: {
+      from: 'DevOps Lead <devops@cloudscale.io>',
+      priority: 'Medium',
+      subject: 'PKG-101: Install core diagnostics & configure GPG keyrings',
+      message: 'Please update server package indexes, install core build utilities (`curl`, `build-essential`, `htop`), import official repository GPG keys securely into `/etc/apt/keyrings`, and extract custom tools to `/opt/tools`.'
+    },
+    businessContext: {
+      whyImportant: 'Using deprecated keyring methods or unverified repositories exposes production nodes to man-in-the-middle package tampering.',
+      ifUnfixed: 'Package contamination or broken dependency upgrades during automated deployments.',
+      affectedUsers: 'Software release pipelines and system administrators.',
+      businessImpact: 'Ensures software supply chain integrity and repeatable server builds.'
+    },
+    environmentList: ['Ubuntu 24.04 LTS / Debian 12', 'APT Package Manager', 'GPG Keyrings', 'Tar Compression'],
+    studentObjective: 'Import GPG keys using modern `/etc/apt/keyrings` standards, install core utilities, inspect package dependencies with `apt-cache`, and unpack tarballs.',
+    expectedOutcome: 'Repositories secured with GPG keyrings, required packages installed, and custom binary extracted to `/opt/tools`.',
+    commonMistakes: [
+      'Using legacy `apt-key add` (which is deprecated and security-flawed in modern Linux distributions).',
+      'Forgetting `apt-get update` before attempting package installs.',
+      'Unpacking tar archives into random directories without explicit target directory flags.'
+    ],
+    seniorAdvice: 'Always use `apt-mark hold <package>` for critical infrastructure components (e.g., PostgreSQL or Docker engine) to prevent unexpected version breaks during unattended upgrades.',
+    bonusChallenge: 'Use `dpkg -S /path/to/binary` to reverse lookup which installed package owns a specific system binary on Debian/Ubuntu.',
+    realWorldSkills: ['APT Package Management', 'GPG Keyring Security', 'Package Dependency Analysis', 'Tarball Archive Extraction'],
+    interviewQuestion: {
+      question: 'What is the purpose of GPG signature verification when adding a third-party software repository to Linux?',
+      answerHint: 'GPG keys cryptographically sign repository metadata and package files, ensuring packages originate from the legitimate vendor and have not been altered or tampered with in transit.'
+    },
     scenario: 'You need to install system diagnostics utilities, configure a third-party apt repository (or RPM repo), verify GPG signatures, and compile/extract a tar.gz utility archive manually.',
     labEnvironment: {
       quickSetupCommand: 'docker run -d --name lab-day05 ubuntu:latest sleep infinity',
@@ -246,7 +386,7 @@ export const DAYS_DATA: DayChallenge[] = [
     hints: [
       {
         id: 'd5-h1',
-        title: 'Hint 1: Modern GPG Keyrings',
+        title: 'Modern GPG Keyrings',
         content: 'Avoid using `apt-key add` (deprecated). Use `/etc/apt/keyrings` and reference the key in `.list` files with `signed-by=`.'
       }
     ],
@@ -254,6 +394,7 @@ export const DAYS_DATA: DayChallenge[] = [
     proTip: 'Use `apt-mark hold <package>` to pin critical packages (e.g., kernel or database versions) from accidental upgrade during system maintenance.',
     tags: ['APT', 'DPKG', 'Tarball', 'GPG', 'Packages']
   },
+
   {
     id: 'day-6',
     dayNumber: 6,

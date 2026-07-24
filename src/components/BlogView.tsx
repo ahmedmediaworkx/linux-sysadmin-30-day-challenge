@@ -28,7 +28,8 @@ export function BlogView() {
       const matchTitle = post.title.toLowerCase().includes(q);
       const matchExcerpt = post.excerpt.toLowerCase().includes(q);
       const matchTags = post.tags.some((t) => t.toLowerCase().includes(q));
-      if (!matchTitle && !matchExcerpt && !matchTags) return false;
+      const matchCategory = post.category.toLowerCase().includes(q);
+      if (!matchTitle && !matchExcerpt && !matchTags && !matchCategory) return false;
     }
     return true;
   });
@@ -115,6 +116,7 @@ export function BlogView() {
 
           {/* Articles Grid with Staggered Animation */}
           <ScrollReveal
+            key={`blog-grid-${selectedCategory}-${searchQuery}`}
             staggerChildren={0.08}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >

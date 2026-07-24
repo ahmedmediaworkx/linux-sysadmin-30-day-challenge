@@ -121,7 +121,7 @@ export function CommandTools() {
         </div>
 
         {/* Tool Selector Tabs */}
-        <div className="flex flex-wrap gap-2 mt-6 pt-6 border-t border-slate-100 dark:border-white/[0.08]">
+        <div className="flex items-center gap-2 mt-6 pt-6 border-t border-slate-100 dark:border-white/[0.08] overflow-x-auto no-scrollbar scroll-smooth pb-1 -mx-2 px-2">
           {tools.map((t) => {
             const Icon = t.icon;
             const isActive = activeTool === t.id;
@@ -129,7 +129,7 @@ export function CommandTools() {
               <button
                 key={t.id}
                 onClick={() => setActiveTool(t.id as any)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all active:scale-95 ${
+                className={`px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all shrink-0 active:scale-95 touch-manipulation min-h-[40px] ${
                   isActive
                     ? 'bg-[#22C55E] text-slate-950 font-bold shadow-md shadow-[#22C55E]/20'
                     : 'bg-slate-100 dark:bg-[#18181B] text-slate-700 dark:text-[#A1A1AA] hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-[#27272A]'

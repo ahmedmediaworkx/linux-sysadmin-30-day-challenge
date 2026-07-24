@@ -46,7 +46,10 @@ export function TerminalSimulator({ initialCommand }: { initialCommand?: string 
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isExecuting, setIsExecuting] = useState(false);
+  const [commandHistory, setCommandHistory] = useState<string[]>(['uname -a', 'whoami']);
+  const [historyIndex, setHistoryIndex] = useState<number>(-1);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (initialCommand) {
@@ -73,6 +76,8 @@ export function TerminalSimulator({ initialCommand }: { initialCommand?: string 
     if (!trimmed) return;
 
     setIsExecuting(true);
+    setCommandHistory((prev) => [...prev.filter((c) => c !== trimmed), trimmed]);
+    setHistoryIndex(-1);
 
     setTimeout(() => {
       const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -202,6 +207,33 @@ f6e5d4c3b2a1   postgres:16    "docker-entrypoint.s…"   5 hours ago    Up 5 hou
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     processCommand(inputVal);
+  };
+
+  const handleKeyDownInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (commandHistory.length === 0) return;
+      const nextIndex = historyIndex < commandHistory.length - 1 ? historyIndex + 1 : historyIndex;
+      setHistoryIndex(nextIndex);
+      const targetCmd = commandHistory[commandHistory.length - 1 - nextIndex];
+      if (targetCmd) setInputVal(targetCmd);
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (historyIndex <= 0) {
+        setHistoryIndex(-1);
+        setInputVal('');
+      } else {
+        const nextIndex = historyIndex - 1;
+        setHistoryIndex(nextIndex);
+        const targetCmd = commandHistory[commandHistory.length - 1 - nextIndex];
+        if (targetCmd) setInputVal(targetCmd);
+      }
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      const available = ['uname -a', 'whoami', 'ls -la', 'df -h', 'free -m', 'ip a', 'ss -tulnp', 'systemctl status', 'journalctl -xe', 'docker ps', 'clear', 'help'];
+      const match = available.find((cmd) => cmd.startsWith(inputVal.trim().toLowerCase()));
+      if (match) setInputVal(match);
+    }
   };
 
   const quickPresets = [
@@ -337,9 +369,11 @@ f6e5d4c3b2a1   postgres:16    "docker-entrypoint.s…"   5 hours ago    Up 5 hou
       <form onSubmit={handleSubmit} className="p-3 bg-[#131416] border-t border-slate-800 flex items-center gap-2 shrink-0">
         <span className="text-[#22C55E] font-bold text-sm select-none">$</span>
         <input
+          ref={inputRef}
           type="text"
           value={inputVal}
           onChange={(e) => setInputVal(e.target.value)}
+          onKeyDown={handleKeyDownInput}
           placeholder="Type command (e.g. uname -a, df -h, ip a, systemctl, help)..."
           className="flex-1 bg-transparent border-none text-slate-100 text-xs focus:outline-none placeholder-slate-500 font-mono"
         />
